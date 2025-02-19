@@ -28,6 +28,7 @@
 
 @theme {
     --radius-default: 1rem;
+    --font-inter: "Inter", serif;
 }
 
 @theme inline {
@@ -59,9 +60,11 @@
 }
 
 html {
+    @apply bg-background-100 text-text font-inter font-normal;
 	height: 100vh;
 	height: 100dvh;
-	@apply bg-background-100 text-text;
+    font-optical-sizing: auto;
+    font-style: normal;
 }
 
 .dark {

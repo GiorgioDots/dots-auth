@@ -1,8 +1,8 @@
-import type { PageServerLoad } from './$types';
-import * as tables from '$lib/server/db/schema';
 import { db } from '$lib/server/db';
+import * as tables from '$lib/server/db/schema';
+import { error, fail, type Actions } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
-import { error } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {
 	if (params.id == 'new') {
@@ -12,7 +12,7 @@ export const load: PageServerLoad = async ({ params }) => {
 				clientId: '',
 				clientSecret: '',
 				name: '',
-				redirectUri: '',
+				redirectUri: ''
 			} as tables.Application
 		};
 	}
@@ -28,4 +28,12 @@ export const load: PageServerLoad = async ({ params }) => {
 	return {
 		app
 	};
+};
+
+export const actions: Actions = {
+	create: async ({locals}) => {
+		return {
+			message: 'ok'
+		};
+	}
 };
