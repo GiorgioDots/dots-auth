@@ -14,10 +14,10 @@
 <nav
 	class="bg-background-100 border-background-300 sticky top-0 z-10 flex min-h-14 items-center justify-between border-b px-4 py-2"
 >
-	<div class="flex items-center gap-2">
+	<a class="flex items-center gap-2" href="/admin">
 		<Logo height={25} />
-		<span class="text-xl font-semibold">Dots Auth</span>
-	</div>
+		<span class="text-xl font-semibold">Dots auth</span>
+	</a>
 	<div class="navbar hidden gap-6 sm:flex">
 		{@render links()}
 	</div>
@@ -47,11 +47,11 @@
 </nav>
 
 {#snippet links()}
-	<a class="nav-link" href="/admin">Dashboard</a>
-	<a class="nav-link" href="/admin/apps">Applications</a>
-	<a class="nav-link" href="/admin/users">Users</a>
+	<a class="nav-link" href="/admin" onclick={() => (fullLinksOpen = false)}>Dashboard</a>
+	<a class="nav-link" href="/admin/apps" onclick={() => (fullLinksOpen = false)}>Applications</a>
+	<a class="nav-link" href="/admin/users" onclick={() => (fullLinksOpen = false)}>Users</a>
 	<form method="post" class="contents" action="/admin?/logout" use:enhance>
-		<button class="nav-link cursor-pointer">Log out</button>
+		<button class="nav-link cursor-pointer" onclick={() => (fullLinksOpen = false)}>Log out</button>
 	</form>
 {/snippet}
 
