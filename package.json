@@ -15,7 +15,8 @@
 		"lint": "prettier --check .",
 		"db:push": "drizzle-kit push",
 		"db:migrate": "drizzle-kit migrate",
-		"db:studio": "drizzle-kit studio"
+		"db:studio": "drizzle-kit studio",
+		"db:generate": "drizzle-kit generate"
 	},
 	"devDependencies": {
 		"@iconify/svelte": "^4.2.0",
