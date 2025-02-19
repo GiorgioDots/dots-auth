@@ -3,4 +3,6 @@
 	let { children } = $props();
 </script>
 
-{@render children()}
+<div class="h-full selection:bg-secondary-500 selection:text-on-secondary">
+	{@render children()}
+</div>

@@ -1,2 +1,10 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<script>
+	import Button from "$lib/components/ui/button/Button.svelte";
+	const handleThemeToggle = () => {
+		const html = document.querySelector("html");
+		html?.classList?.toggle("dark");
+		localStorage.theme = html?.classList?.contains("dark") ? "dark" : "light";
+	};
+</script>
+<a class="link" href="/admin">login</a>
+<Button onclick={handleThemeToggle}>Test</Button>
