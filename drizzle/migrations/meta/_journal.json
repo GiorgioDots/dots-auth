@@ -15,6 +15,13 @@
       "when": 1740005276266,
       "tag": "0001_common_ultragirl",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1740088818145,
+      "tag": "0002_plain_forge",
+      "breakpoints": true
     }
   ]
 }

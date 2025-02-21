@@ -6,7 +6,7 @@
 
 <div class="relative flex flex-col h-full overflow-auto">
 	<AdminNavbar></AdminNavbar>
-	<main class="w-full border-background-300 relative mx-auto max-w-7xl flex-1 p-2 xl:border-x">
+	<main class="w-full border-background-200 relative mx-auto max-w-7xl flex-1 xl:border-x">
 		{@render children?.()}
 	</main>
 </div>

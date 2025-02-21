@@ -20,9 +20,9 @@ export const application = sqliteTable('applications', {
 	name: text('name').notNull(),
 	clientId: text('client_id').notNull().unique(),
 	clientSecret: text('client_secret').notNull(),
-	redirectUri: text('redirect_uri').notNull(),
-	tokenExpirationSeconds: integer('token_expiration_seconds'),
-	refreshTokenExpirationSeconds: integer('refresh_token_expiration_seconds')
+	redirectUri: text('redirect_uri'),
+	tokenExpirationSeconds: integer('token_expiration_seconds').notNull(),
+	refreshTokenExpirationSeconds: integer('refresh_token_expiration_seconds').notNull()
 });
 
 export const userApplications = sqliteTable('user_applications', {

@@ -3,82 +3,92 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-    --primary-color-50: var(--color-sky-50);
-    --primary-color-100: var(--color-sky-100);
-    --primary-color-200: var(--color-sky-200);
-    --primary-color-300: var(--color-sky-300);
-    --primary-color-400: var(--color-sky-400);
-    --primary-color-500: var(--color-sky-500);
-    --primary-color-600: var(--color-sky-600);
-    --secondary-color-500: var(--color-violet-500);
-    --secondary-color-600: var(--color-violet-600);
-    --background-color-100: var(--color-zinc-950);
-    --background-color-200: var(--color-zinc-900);
-    --background-color-300: var(--color-zinc-800);
-    --background-color-400: var(--color-zinc-700);
-    --background-color-950: var(--color-zinc-50);
-    --text-color: var(--color-zinc-50);
-    --text-color-200: var(--color-zinc-200);
-    --on-primary-color: var(--color-sky-50);
-    --on-secondary-color: var(--color-violet-50);
-    --success-color: var(--color-green-500);
-    --warning-color: var(--color-yellow-500);
-    --error-color: var(--color-red-500);
+	--primary-color-50: var(--color-sky-50);
+	--primary-color-100: var(--color-sky-100);
+	--primary-color-200: var(--color-sky-200);
+	--primary-color-300: var(--color-sky-300);
+	--primary-color-400: var(--color-sky-400);
+	--primary-color-500: var(--color-sky-500);
+	--primary-color-600: var(--color-sky-600);
+	--secondary-color-500: var(--color-violet-500);
+	--secondary-color-600: var(--color-violet-600);
+	--background-color-50: var(--color-zinc-950);
+	--background-color-100: var(--color-zinc-900);
+	--background-color-200: var(--color-zinc-800);
+	--background-color-300: var(--color-zinc-700);
+	--background-color-400: var(--color-zinc-600);
+	--background-color-500: var(--color-zinc-500);
+	--background-color-600: var(--color-zinc-400);
+	--background-color-700: var(--color-zinc-300);
+	--background-color-950: var(--color-zinc-50);
+	--text-color: var(--color-zinc-50);
+	--text-color-200: var(--color-zinc-200);
+	--text-color-300: var(--color-zinc-300);
+	--on-primary-color: var(--color-sky-50);
+	--on-secondary-color: var(--color-violet-50);
+	--success-color: var(--color-green-500);
+	--warning-color: var(--color-yellow-500);
+	--error-color: var(--color-red-500);
 }
 
 @theme {
-    --radius-default: 1rem;
-    --font-inter: "Inter", serif;
+	--radius-default: 1rem;
+	--font-inter: 'Inter', serif;
 }
 
 @theme inline {
-    --color-primary-50: var(--primary-color-50);
-    --color-primary-100: var(--primary-color-100);
-    --color-primary-200: var(--primary-color-200);
-    --color-primary-300: var(--primary-color-300);
-    --color-primary-400: var(--primary-color-400);
-    --color-primary-500: var(--primary-color-500);
-    --color-primary-600: var(--primary-color-600);
-    --color-secondary-500: var(--secondary-color-500);
-    --color-secondary-600: var(--secondary-color-600);
-    --color-background-100: var(--background-color-100);
-    --color-background-200: var(--background-color-200);
-    --color-background-300: var(--background-color-300);
-    --color-background-400: var(--background-color-400);
-    --color-background-950: var(--background-color-950);
-    --color-text: var(--text-color);
-    --color-text-100: var(--text-color-200);
-    --color-on-primary: var(--on-primary-color);
-    --color-on-secondary: var(--on-secondary-color);
-    --color-success: var(--success-color);
-    --color-warning: var(--warning-color);
-    --color-error: var(--error-color);
+	--color-primary-50: var(--primary-color-50);
+	--color-primary-100: var(--primary-color-100);
+	--color-primary-200: var(--primary-color-200);
+	--color-primary-300: var(--primary-color-300);
+	--color-primary-400: var(--primary-color-400);
+	--color-primary-500: var(--primary-color-500);
+	--color-primary-600: var(--primary-color-600);
+	--color-secondary-500: var(--secondary-color-500);
+	--color-secondary-600: var(--secondary-color-600);
+	--color-background-50: var(--background-color-50);
+	--color-background-100: var(--background-color-100);
+	--color-background-200: var(--background-color-200);
+	--color-background-300: var(--background-color-300);
+	--color-background-400: var(--background-color-400);
+	--color-background-500: var(--background-color-500);
+	--color-background-600: var(--background-color-600);
+	--color-background-700: var(--background-color-700);
+	--color-background-950: var(--background-color-950);
+	--color-text: var(--text-color);
+	--color-text-200: var(--text-color-200);
+	--color-text-300: var(--text-color-300);
+	--color-on-primary: var(--on-primary-color);
+	--color-on-secondary: var(--on-secondary-color);
+	--color-success: var(--success-color);
+	--color-warning: var(--warning-color);
+	--color-error: var(--error-color);
 }
 
 * {
-    @apply box-border;
+	@apply box-border;
 }
 
 html {
-    @apply bg-background-100 text-text font-inter font-normal;
+	@apply bg-background-50 text-text font-inter font-normal;
 	height: 100vh;
 	height: 100dvh;
-    font-optical-sizing: auto;
-    font-style: normal;
+	font-optical-sizing: auto;
+	font-style: normal;
 }
 
 .dark {
-    @apply scheme-dark;
+	@apply scheme-dark;
 }
 
 body {
-    @apply h-full antialiased;
+	@apply h-full antialiased;
 }
 
 .link {
-    @apply text-primary-500 hover:text-primary-600 hover:underline;
+	@apply text-primary-500 hover:text-primary-600 hover:underline;
 }
 
 .logo {
-    @apply fill-primary-500;
+	@apply fill-primary-500;
 }

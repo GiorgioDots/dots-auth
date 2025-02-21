@@ -14,7 +14,7 @@
 	<Card classes="w-full max-w-sm">
 		<Logo height={75} classes="mx-auto mb-2" />
 		<h1 class="mb-0 text-center text-xl">Hello 人間どの</h1>
-		<h2 class="text-text-100 text-center text-sm">Insert your credentials to login</h2>
+		<h2 class="text-text-200 text-center text-sm">Insert your credentials to login</h2>
 		<form
 			data-sveltekit-keepfocus
 			method="post"

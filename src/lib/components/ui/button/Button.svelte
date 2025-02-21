@@ -18,9 +18,9 @@
 
 <button
 	{...buttonprops}
-	class="{colorClasses[
+	class="{buttonprops.class} {colorClasses[
 		color
-	]} rounded-default cursor-pointer px-4 py-2 transition-[background] duration-100 focus:outline-2 focus:outline-offset-3 disabled:cursor-not-allowed  disabled:text-text-300 disabled:opacity-80"
+	]} block rounded-default cursor-pointer px-4 py-2 transition-[background] duration-100 focus:outline-2 focus:outline-offset-3 disabled:cursor-not-allowed  disabled:text-text-300 disabled:opacity-80"
 >
 	<span class="flex items-center justify-center gap-2">
 		{#if loading}

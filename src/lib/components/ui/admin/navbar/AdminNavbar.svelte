@@ -12,7 +12,7 @@
 </script>
 
 <nav
-	class="bg-background-100 border-background-300 sticky top-0 z-10 flex min-h-14 items-center justify-between border-b px-4 py-2"
+	class="bg-background-50 border-background-200 sticky top-0 z-10 flex min-h-14 items-center justify-between border-b px-4 py-2"
 >
 	<a class="flex items-center gap-2" href="/admin">
 		<Logo height={25} />
@@ -30,7 +30,7 @@
 <nav
 	class="{fullLinksOpen
 		? 'flex'
-		: 'hidden'} bg-background-100 full-links-nav absolute top-0 left-0 z-50 h-full w-full flex-col"
+		: 'hidden'} bg-background-50 full-links-nav absolute top-0 left-0 z-50 h-full w-full flex-col"
 >
 	<div class="flex items-center justify-between gap-2 px-4 py-4 sm:px-6">
 		<Logo height={25} />
@@ -63,7 +63,7 @@
 	}
 	.nav-button,
 	.full-links-nav .nav-link {
-		@apply hover:bg-background-300 active:bg-background-200 inline cursor-pointer rounded-md p-1 transition-colors duration-100;
+		@apply hover:bg-background-200 active:bg-background-100 inline cursor-pointer rounded-md p-1 transition-colors duration-100;
 	}
 	.full-links-nav button.nav-link,
 	.full-links-nav .nav-link {

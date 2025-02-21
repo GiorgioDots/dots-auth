@@ -8,12 +8,27 @@
 	const { applications } = data;
 </script>
 
-<header class="bg-background-100 sticky top-0 z-10 flex items-center justify-between">
+<header class="bg-background-50 sticky top-[56px] z-10 flex min-h-[2rem] items-center justify-between p-2 ">
 	<h1 class="text-lg">Applications</h1>
 	<Button onclick={() => goto('apps/new')}>
-		<Icon icon="tabler:plus"></Icon>
+		<Icon icon="tabler:plus" height="18"></Icon>
 	</Button>
 </header>
-{#each applications as app}
-	<div>{app.name}</div>
-{/each}
+<div class="flex flex-col gap-2 p-2 pt-0">
+	{#each applications as app}
+		<a
+			href="apps/{app.id}"
+			class="rounded-default hover:bg-background-100 p-2 pt-0 transition-colors duration-100 border border-background-200"
+		>
+			<div class="font-semibold">
+				{app.name}
+			</div>
+			<div class="text-background-600 text-xs">
+				Client Id: <span class="font-semibold">{app.clientId}</span>
+			</div>
+			<div class="text-background-600 text-xs">
+				Client Secret: <span class="font-semibold">{app.clientSecret}</span>
+			</div>
+		</a>
+	{/each}
+</div>
