@@ -29,7 +29,7 @@
 			class="mt-3 flex w-full flex-col gap-4"
 		>
 			<Input disabled={loading} icon="tabler:user-filled" name="username" />
-			<Input disabled={loading} icon="tabler:lock-password" type="password" name="password" />
+			<Input disabled={loading} icon="tabler:key" type="password" name="password" />
 			<Button type="submit" disabled={loading} {loading}>Login</Button>
 			<!-- <Button formaction="?/register">Register</Button> -->
 		</form>

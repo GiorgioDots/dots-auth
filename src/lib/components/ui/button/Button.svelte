@@ -6,7 +6,7 @@
 		color?: 'primary' | 'secondary';
 		loading?: boolean;
 	}
-	let { color, loading, children, ...buttonprops }: HTMLButtonAttributesWithColor = $props();
+	let { color, loading, children, disabled, ...buttonprops }: HTMLButtonAttributesWithColor = $props();
 
 	if (color == undefined) color = 'primary';
 	let colorClasses = {
@@ -21,6 +21,7 @@
 	class="{buttonprops.class} {colorClasses[
 		color
 	]} block rounded-default cursor-pointer px-4 py-2 transition-[background] duration-100 focus:outline-2 focus:outline-offset-3 disabled:cursor-not-allowed  disabled:text-text-300 disabled:opacity-80"
+	disabled={loading || disabled}
 >
 	<span class="flex items-center justify-center gap-2">
 		{#if loading}
