@@ -4,13 +4,11 @@
 	import Card from '$lib/components/ui/card/Card.svelte';
 	import Input from '$lib/components/ui/input/Input.svelte';
 	import Logo from '$lib/components/ui/logo/Logo.svelte';
-	import type { Application } from '$lib/server/db/schema';
 
 	let {
 		afterSubmit,
 		goToLogin,
-		app
-	}: { afterSubmit?: () => void; goToLogin?: () => void; app: Application } = $props();
+	}: { afterSubmit?: () => void; goToLogin?: () => void; } = $props();
 	let username = $state('');
 	let email = $state('');
 	let password = $state('');
@@ -19,7 +17,7 @@
 <div class="flex h-full items-center justify-center p-4">
 	<Card classes="w-full max-w-sm">
 		<Logo height={75} classes="mx-auto mb-2" />
-		<h1 class="mb-0 text-center text-xl">Sign Up</h1>
+		<h1 class="mb-0 text-center text-xl">Sign up</h1>
 		<h2 class="text-text-200 text-center text-sm">Insert the information below to sign up</h2>
 		<form
 			method="POST"
@@ -38,17 +36,30 @@
 				placeholder="Username"
 				bind:value={username}
 				required
+				icon="tabler:user-filled"
 			/>
-			<Input name="email" type="email" placeholder="Email" bind:value={email} required />
+			<Input
+				name="email"
+				type="email"
+				placeholder="Email"
+				bind:value={email}
+				required
+				icon="tabler:mail"
+			/>
 			<Input
 				name="password"
 				type="password"
 				placeholder="Password"
 				bind:value={password}
 				required
+				icon="tabler:key"
 			/>
-			<Button type="submit">Sign up</Button>
-			<button class="link" type="button" onclick={() => goToLogin?.()}>Already have account?</button>
+			<Button type="submit">SIGN UP</Button>
+			<div class="flex justify-end pb-2">
+				<button class="link" type="button" onclick={() => goToLogin?.()}>
+					Already have an account?
+				</button>
+			</div>
 		</form>
 	</Card>
 </div>

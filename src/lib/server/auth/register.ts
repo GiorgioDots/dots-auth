@@ -9,12 +9,11 @@ import { v7 } from 'uuid';
 const schema = z.object({
 	username: z.string().min(1, 'Name is required'),
 	email: z.string().email('You need to insert an email'),
-	password: z.string().min(12, 'Password is required')
+	password: z.string().min(12, 'Password need to be at least 12 characters')
 });
 
 export const register = async (request: Request) => {
 	const formData = await request.formData();
-    console.log(formData)
 	const data = Object.fromEntries(formData);
 	const result = schema.safeParse(data);
 

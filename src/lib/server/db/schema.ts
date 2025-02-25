@@ -26,12 +26,21 @@ export const application = sqliteTable('applications', {
 });
 
 export const userApplications = sqliteTable('user_applications', {
+	id: text('id').primaryKey(),
 	userId: text('user_id')
 		.notNull()
 		.references(() => user.id),
 	applicationId: text('application_id')
 		.notNull()
 		.references(() => application.id)
+});
+
+export const userApplicationsCodes = sqliteTable('user_applications_codes', {
+	id: text('id').primaryKey(),
+	idUserApplication: text('user_application_id')
+		.notNull()
+		.references(() => userApplications.id),
+	code: text('code').notNull()
 });
 
 export const refreshToken = sqliteTable('refresh_tokens', {

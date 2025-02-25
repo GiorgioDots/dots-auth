@@ -26,9 +26,12 @@
 	--text-color-300: var(--color-zinc-300);
 	--on-primary-color: var(--color-sky-50);
 	--on-secondary-color: var(--color-violet-50);
+	--on-error-color: var(--color-red-50);
 	--success-color: var(--color-green-500);
 	--warning-color: var(--color-yellow-500);
-	--error-color: var(--color-red-500);
+	--error-color-500: var(--color-red-500);
+	--error-color-600: var(--color-red-600);
+	--error-color-700: var(--color-red-700);
 }
 
 @theme {
@@ -60,9 +63,12 @@
 	--color-text-300: var(--text-color-300);
 	--color-on-primary: var(--on-primary-color);
 	--color-on-secondary: var(--on-secondary-color);
+	--color-on-error: var(--on-error-color);
 	--color-success: var(--success-color);
 	--color-warning: var(--warning-color);
-	--color-error: var(--error-color);
+	--color-error-500: var(--error-color-500);
+	--color-error-600: var(--error-color-600);
+	--color-error-700: var(--error-color-700);
 }
 
 * {

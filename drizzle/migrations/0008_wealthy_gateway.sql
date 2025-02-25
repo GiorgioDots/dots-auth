@@ -1,0 +1,1 @@
+ALTER TABLE `user_applications_codes` ADD `user_application_id` text NOT NULL REFERENCES user_applications(id);

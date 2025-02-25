@@ -4,7 +4,6 @@
 	import Card from '$lib/components/ui/card/Card.svelte';
 	import Input from '$lib/components/ui/input/Input.svelte';
 	import Logo from '$lib/components/ui/logo/Logo.svelte';
-	import type { Application } from '$lib/server/db/schema';
 
 	let { afterSubmit, goToRegister }: { afterSubmit?: () => void; goToRegister?: () => void } =
 		$props();
@@ -28,17 +27,28 @@
 			}}
 			class="mt-3 flex w-full flex-col gap-4"
 		>
-			<Input name="login" type="login" placeholder="Login" bind:value={login} required />
+			<Input
+				name="login"
+				type="login"
+				placeholder="Username or email"
+				bind:value={login}
+				required
+				icon="tabler:user-filled"
+			/>
 			<Input
 				name="password"
 				type="password"
 				placeholder="Password"
 				bind:value={password}
 				required
+				icon="tabler:key"
 			/>
-			<Button type="submit">Login</Button>
-			<button class="link self-auto" type="button" onclick={() => goToRegister?.()}>No account?</button>
+			<Button type="submit">LOGIN</Button>
+			<div class="flex justify-end pb-2">
+				<button class="link" type="button" onclick={() => goToRegister?.()}>
+					Don't have an account?
+				</button>
+			</div>
 		</form>
-		<!-- <p class="text-error mt-2">{form?.message ?? ''}</p> -->
 	</Card>
 </div>
