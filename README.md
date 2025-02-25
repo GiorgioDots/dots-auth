@@ -1,3 +1,5 @@
+http://localhost:5173/oauth/authorize?client_id=clientId&redirect_uri=http://localhost:4200/callback&code_challenge=ag3w0o458ghreoighrfe&state=40tg89yh3wo4rt5gih
+
 # sv
 
 Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).

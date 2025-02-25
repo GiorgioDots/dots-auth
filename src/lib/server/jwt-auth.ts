@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import { refreshToken, type Application, type User } from './db/schema';
+import { refreshToken, type Application, type RefreshToken, type User } from './db/schema';
 import jwt from 'jsonwebtoken';
 import { db } from './db';
 
@@ -22,12 +22,13 @@ export const generateToken = async (
 
 	const generatedRefreshToken = generateRefreshToken();
 
-    const toinsert = {
-        userId: user.id,
-        refreshToken: generatedRefreshToken,
-        expiresAt: new Date(Date.now() + application.refreshTokenExpirationSeconds * 1000)
-    };
-    await db.insert(refreshToken).values(toinsert)
+	const toinsert = {
+		userId: user.id,
+		refreshToken: generatedRefreshToken,
+		expiresAt: new Date(Date.now() + application.refreshTokenExpirationSeconds * 1000),
+		idApplication: application.id
+	} as RefreshToken;
+	await db.insert(refreshToken).values(toinsert);
 
 	return {
 		access_token: token,

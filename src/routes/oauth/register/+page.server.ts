@@ -49,7 +49,7 @@ export const actions: Actions = {
 		}
 
 		const tosave = result.data;
-		console.log(tosave, formData)
+		console.log(tosave, formData);
 
 		const [app] = await db
 			.select()
@@ -59,13 +59,9 @@ export const actions: Actions = {
 			return fail(422, { error: 'Client id not valid' });
 		}
 
-		if (
-			(app.redirectUri == null || app.redirectUri.trim() == '') &&
-			(tosave.customRedirectUri == null || tosave.customRedirectUri.trim() == '')
-		) {
+		if (tosave.customRedirectUri == null || tosave.customRedirectUri.trim() == '') {
 			return fail(422, { error: 'No redirect url found' });
 		}
-
 
 		// COME GESTIRE IL CASO IN CUI UN UTENTE E' GIA' REGISTRATO MA STA ACCEDENDO AD UNA NUOVA APP?
 		let [foundUser] = await db
@@ -101,16 +97,14 @@ export const actions: Actions = {
 		await db.insert(userApplications).values({
 			applicationId: app.id,
 			userId: foundUser.id
-		})
+		});
 
 		const tokenData = await generateToken(foundUser, app);
 
-		let redirectUri = app.redirectUri?.trim();
-		if (tosave.customRedirectUri) {
-			redirectUri = tosave.customRedirectUri.trim();
-		}
-
-		return redirect(303, `${redirectUri}?t=${tokenData.access_token}&r=${tokenData.refresh_token}`);
+		return redirect(
+			303,
+			`${tosave.customRedirectUri.trim()}?t=${tokenData.access_token}&r=${tokenData.refresh_token}`
+		);
 	}
 };
 

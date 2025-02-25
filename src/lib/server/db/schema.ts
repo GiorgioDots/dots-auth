@@ -21,7 +21,6 @@ export const application = sqliteTable('applications', {
 	name: text('name').notNull(),
 	clientId: text('client_id').notNull().unique(),
 	clientSecret: text('client_secret').notNull(),
-	redirectUri: text('redirect_uri'),
 	tokenExpirationSeconds: integer('token_expiration_seconds').notNull(),
 	refreshTokenExpirationSeconds: integer('refresh_token_expiration_seconds').notNull()
 });
@@ -41,8 +40,11 @@ export const refreshToken = sqliteTable('refresh_tokens', {
 		.references(() => user.id),
 	refreshToken: text('refresh_token').notNull().unique(),
 	expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull(),
-	isInvalidated: integer('is_invalidated', { mode: 'boolean' }).notNull().default(false)
-})
+	isInvalidated: integer('is_invalidated', { mode: 'boolean' }).notNull().default(false),
+	idApplication: text('application_id')
+		.notNull()
+		.references(() => application.id)
+});
 
 export type Session = typeof session.$inferSelect;
 

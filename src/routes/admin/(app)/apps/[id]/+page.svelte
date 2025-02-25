@@ -46,7 +46,6 @@
 			<Input name="name" label="Application name" bind:value={formData.name} required />
 			<Input name="clientId" label="Client Id" bind:value={formData.clientId} required />
 			<Input name="clientSecret" label="Client Secret" bind:value={formData.clientSecret} required />
-			<Input name="redirectUri" label="Redirect Uri" bind:value={formData.redirectUri} />
 			<Input
 				name="tokenExpirationSeconds"
 				label="Token Expiration Seconds"
