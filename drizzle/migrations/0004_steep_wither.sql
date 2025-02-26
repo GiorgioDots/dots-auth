@@ -1,1 +1,0 @@
-ALTER TABLE `refresh_tokens` ADD `application_id` text NOT NULL REFERENCES applications(id);

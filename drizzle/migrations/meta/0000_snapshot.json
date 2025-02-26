@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "bf79e75f-70fb-42c9-a32e-5b1aeebfb3aa",
+  "id": "a26d4745-2d2d-43dc-a29b-0010bbc72dd6",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "applications": {
@@ -35,25 +35,18 @@
           "notNull": true,
           "autoincrement": false
         },
-        "redirect_uri": {
-          "name": "redirect_uri",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
         "token_expiration_seconds": {
           "name": "token_expiration_seconds",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "refresh_token_expiration_seconds": {
           "name": "refresh_token_expiration_seconds",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         }
       },
@@ -74,6 +67,13 @@
     "refresh_tokens": {
       "name": "refresh_tokens",
       "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
         "user_id": {
           "name": "user_id",
           "type": "text",
@@ -102,6 +102,13 @@
           "notNull": true,
           "autoincrement": false,
           "default": false
+        },
+        "application_id": {
+          "name": "application_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
         }
       },
       "indexes": {
@@ -120,6 +127,19 @@
           "tableTo": "users",
           "columnsFrom": [
             "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "refresh_tokens_application_id_applications_id_fk": {
+          "name": "refresh_tokens_application_id_applications_id_fk",
+          "tableFrom": "refresh_tokens",
+          "tableTo": "applications",
+          "columnsFrom": [
+            "application_id"
           ],
           "columnsTo": [
             "id"
@@ -187,11 +207,11 @@
           "notNull": true,
           "autoincrement": false
         },
-        "age": {
-          "name": "age",
-          "type": "integer",
+        "email": {
+          "name": "email",
+          "type": "text",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "username": {
@@ -218,6 +238,13 @@
         }
       },
       "indexes": {
+        "users_email_unique": {
+          "name": "users_email_unique",
+          "columns": [
+            "email"
+          ],
+          "isUnique": true
+        },
         "users_username_unique": {
           "name": "users_username_unique",
           "columns": [
@@ -234,6 +261,13 @@
     "user_applications": {
       "name": "user_applications",
       "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
         "user_id": {
           "name": "user_id",
           "type": "text",
@@ -270,6 +304,65 @@
           "tableTo": "applications",
           "columnsFrom": [
             "application_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "user_applications_codes": {
+      "name": "user_applications_codes",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "user_application_id": {
+          "name": "user_application_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "code": {
+          "name": "code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "code_challenge": {
+          "name": "code_challenge",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "user_applications_codes_user_application_id_user_applications_id_fk": {
+          "name": "user_applications_codes_user_application_id_user_applications_id_fk",
+          "tableFrom": "user_applications_codes",
+          "tableTo": "user_applications",
+          "columnsFrom": [
+            "user_application_id"
           ],
           "columnsTo": [
             "id"
