@@ -37,6 +37,5 @@ export const login = async (request: Request) => {
 		return { errors: { generic: 'Invalid credentials' } };
 	}
 
-	
 	return { user: foundUser };
 };

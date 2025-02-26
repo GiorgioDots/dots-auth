@@ -92,7 +92,7 @@ body {
 }
 
 .link {
-	@apply text-primary-500 hover:text-primary-600 hover:underline cursor-pointer inline w-auto;
+	@apply text-primary-500 hover:text-primary-600 inline w-auto cursor-pointer hover:underline;
 }
 
 .logo {

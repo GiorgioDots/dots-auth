@@ -5,10 +5,7 @@
 	import Input from '$lib/components/ui/input/Input.svelte';
 	import Logo from '$lib/components/ui/logo/Logo.svelte';
 
-	let {
-		afterSubmit,
-		goToLogin,
-	}: { afterSubmit?: () => void; goToLogin?: () => void; } = $props();
+	let { afterSubmit, goToLogin }: { afterSubmit?: () => void; goToLogin?: () => void } = $props();
 	let username = $state('');
 	let email = $state('');
 	let password = $state('');

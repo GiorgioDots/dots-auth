@@ -21,7 +21,7 @@
 			action="?/login"
 			use:enhance={() => {
 				loading = true;
-				return async ({update}) => {
+				return async ({ update }) => {
 					await update();
 					loading = false;
 				};

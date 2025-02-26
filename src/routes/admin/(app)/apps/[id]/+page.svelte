@@ -14,7 +14,7 @@
 
 	let isNew = $derived(() => {
 		return data.app.id == '';
-	})
+	});
 </script>
 
 <div class="flex h-full flex-col gap-4 p-2">
@@ -26,7 +26,7 @@
 	</div>
 	<div class="flex flex-col gap-4 md:flex-row">
 		<form
-			class="mx-auto flex w-full flex-col gap-4 md:flex-1 md:max-w-md"
+			class="mx-auto flex w-full flex-col gap-4 md:max-w-md md:flex-1"
 			method="POST"
 			action="?/createupdate"
 			use:enhance={() => {
@@ -45,7 +45,12 @@
 			<input name="id" bind:value={formData.id} class="hidden" />
 			<Input name="name" label="Application name" bind:value={formData.name} required />
 			<Input name="clientId" label="Client Id" bind:value={formData.clientId} required />
-			<Input name="clientSecret" label="Client Secret" bind:value={formData.clientSecret} required />
+			<Input
+				name="clientSecret"
+				label="Client Secret"
+				bind:value={formData.clientSecret}
+				required
+			/>
 			<Input
 				name="tokenExpirationSeconds"
 				label="Token Expiration Seconds"

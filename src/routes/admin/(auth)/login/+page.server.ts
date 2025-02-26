@@ -17,7 +17,7 @@ export const actions: Actions = {
 		const formData = await event.request.formData();
 		const username = formData.get('username');
 		const password = formData.get('password');
-		
+
 		if (!validateUsername(username)) {
 			return fail(400, {
 				message: 'Invalid credentials'

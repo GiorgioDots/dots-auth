@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { scale } from "svelte/transition";
+	import { scale } from 'svelte/transition';
 
 	let { children, open, onclose }: { children: any; open?: boolean; onclose?: () => void } =
 		$props();
 </script>
 
 {#if open}
-	<div  class="absolute top-0 left-0 z-20 h-full w-full">
+	<div class="absolute top-0 left-0 z-20 h-full w-full">
 		<div
 			class="bg-background-50 absolute top-0 left-0 h-full w-full opacity-60"
 			onclick={() => onclose?.()}
@@ -14,7 +14,7 @@
 			role="button"
 			tabindex="0"
 		></div>
-		<div transition:scale={{duration: 100}} class="modal">
+		<div transition:scale={{ duration: 100 }} class="modal">
 			{@render children?.()}
 		</div>
 	</div>

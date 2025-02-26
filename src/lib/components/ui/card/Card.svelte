@@ -10,10 +10,9 @@
 	} = $props();
 </script>
 
-<div class="{classes} bg-background-100 rounded-default p-2 border-1 border-primary-300">
+<div class="{classes} bg-background-100 rounded-default border-primary-300 border-1 p-2">
 	{@render children?.()}
 </div>
 
 <style>
-
 </style>

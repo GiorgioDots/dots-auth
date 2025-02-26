@@ -34,6 +34,7 @@ npm run db:generate
 ```
 
 ## Execute migration
+
 ```bash
 npm run db:migrate
 ```
