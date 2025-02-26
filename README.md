@@ -25,7 +25,7 @@ You can preview the production build with `npm run preview`.
 
 # DB Migrations
 
-After editing the [schema]('./src/lib/server/db/schema.ts), run the following commands to update the database:
+After editing the [schema]('src/lib/server/db/schema.ts), run the following commands to update the database:
 
 ## Create migration
 
