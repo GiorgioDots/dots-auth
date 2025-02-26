@@ -1,54 +1,108 @@
 import { db } from '$lib/server/db/index.js';
-import { application } from '$lib/server/db/schema.js';
+import {
+	application,
+	refreshToken,
+	user,
+	userApplications,
+	userApplicationsCodes
+} from '$lib/server/db/schema.js';
+import { generateToken } from '$lib/server/jwt-auth.js';
 import { json } from '@sveltejs/kit';
-import { eq } from 'drizzle-orm';
+import { and, eq, gt } from 'drizzle-orm';
 
-export async function POST({ request, cookies }) {
-	const body = await request.formData();
-	const client_id = body.get('client_id');
-	const grant_type = body.get('grant_type');
-	const code = body.get('code');
-	const code_verifier = body.get('code_verifier');
+export async function POST({ request }) {
+	const { grant_type, code, code_verifier, refresh_token } = await request.json();
 
-	if (
-		grant_type !== 'authorization_code' ||
-		!code ||
-		!code_verifier ||
-		!client_id ||
-		typeof code_verifier != 'string' ||
-		typeof client_id != 'string'
-	) {
-		return json({ error: 'invalid_request' }, { status: 400 });
+	if (grant_type == 'token') {
+		if (!code || !code_verifier) {
+			return json({ error: 'Invalid request' }, { status: 400 });
+		}
+
+		const [uappcode] = await db
+			.select()
+			.from(userApplicationsCodes)
+			.where(
+				and(eq(userApplicationsCodes.code, code), gt(userApplicationsCodes.expiresAt, new Date()))
+			)
+			.innerJoin(userApplications, eq(userApplications.id, userApplicationsCodes.idUserApplication))
+			.innerJoin(user, eq(user.id, userApplications.userId))
+			.innerJoin(application, eq(application.id, userApplications.applicationId));
+
+		if (!uappcode) {
+			return json({ error: 'Invalid request' }, { status: 400 });
+		}
+
+		const stored_code_challenge = uappcode.user_applications_codes.codeChallenge;
+
+		const challenge = await computeCodeChallenge(code_verifier);
+		if (challenge !== stored_code_challenge) {
+			return json({ error: 'Invalid request' }, { status: 400 });
+		}
+
+		const tokenData = await generateToken(uappcode.users, uappcode.applications);
+
+		await db
+			.update(userApplicationsCodes)
+			.set({
+				expiresAt: new Date()
+			})
+			.where(eq(userApplicationsCodes.id, uappcode.user_applications_codes.id));
+
+		return json({
+			access_token: tokenData.access_token,
+			token_type: 'Bearer',
+			expires_at: tokenData.expires_at,
+			refresh_token: tokenData.refresh_token
+		});
 	}
+	if (grant_type == 'refresh_token') {
+		if (!refresh_token) {
+			return json({ error: 'Invalid request' }, { status: 400 });
+		}
+		const [savedRefresh] = await db
+			.select()
+			.from(refreshToken)
+			.where(
+				and(eq(refreshToken.refreshToken, refresh_token), gt(refreshToken.expiresAt, new Date()))
+			)
+			.innerJoin(user, eq(user.id, refreshToken.userId))
+			.innerJoin(application, eq(application.id, refreshToken.idApplication));
 
-	const [app] = await db.select().from(application).where(eq(application.clientId, client_id));
-	if (!app) {
-		return json({ error: 'invalid_request' }, { status: 400 });
+		if (!savedRefresh) {
+			return json({ error: 'Invalid request' }, { status: 400 });
+		}
+
+		// Unnecessary check
+		const [uapp] = await db
+			.select()
+			.from(userApplications)
+			.where(
+				and(
+					eq(userApplications.userId, savedRefresh.users.id),
+					eq(userApplications.applicationId, savedRefresh.applications.id)
+				)
+			);
+		if (!uapp) {
+			return json({ error: 'Invalid request' }, { status: 400 });
+		}
+
+		await db
+			.update(refreshToken)
+			.set({
+				expiresAt: new Date()
+			})
+			.where(eq(refreshToken.id, savedRefresh.refresh_tokens.id));
+
+		const tokenData = await generateToken(savedRefresh.users, savedRefresh.applications);
+
+		return json({
+			access_token: tokenData.access_token,
+			token_type: 'Bearer',
+			expires_at: tokenData.expires_at,
+			refresh_token: tokenData.refresh_token
+		});
 	}
-
-	// Simuliamo il recupero della code_challenge salvata
-	const stored_code_challenge = cookies.get('oauth_code_challenge');
-
-	// Verifica code_verifier -> code_challenge
-	const challenge = await computeCodeChallenge(code_verifier);
-	if (challenge !== stored_code_challenge) {
-		return json({ error: 'invalid_grant' }, { status: 400 });
-	}
-
-	cookies.delete('oauth_code_challenge', {
-		path: '/token'
-	});
-
-	// Genera access token e refresh token (dovresti usare una libreria JWT)
-	const access_token = 'ACCESS_TOKEN';
-	const refresh_token = 'REFRESH_TOKEN';
-
-	return json({
-		access_token,
-		token_type: 'Bearer',
-		expires_in: 3600,
-		refresh_token
-	});
+	return json({ error: 'Invalid request' }, { status: 400 });
 }
 
 async function computeCodeChallenge(codeVerifier: string): Promise<string> {
@@ -59,7 +113,6 @@ async function computeCodeChallenge(codeVerifier: string): Promise<string> {
 	return base64UrlEncode(digest);
 }
 
-// Helper function to convert ArrayBuffer to Base64-URL format
 function base64UrlEncode(buffer: ArrayBuffer): string {
 	const binary = String.fromCharCode(...new Uint8Array(buffer));
 	return btoa(binary)

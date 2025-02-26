@@ -1,0 +1,1 @@
+ALTER TABLE `user_applications_codes` ADD `expires_at` integer NOT NULL;

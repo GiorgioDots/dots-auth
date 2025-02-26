@@ -1,4 +1,4 @@
-http://localhost:5173/oauth/authorize?client_id=clientId&redirect_uri=http://localhost:4200/callback&code_challenge=ag3w0o458ghreoighrfe&state=40tg89yh3wo4rt5gih
+http://localhost:5173/oauth/authorize?client_id=clientId&redirect_uri=http://localhost:4200/callback&code_challenge=72Z3R9UhtjWsXeB7r1Y6JoG0llyxL6P31vUEpOm7JQw&state=40tg89yh3wo4rt5gih
 
 # sv
 

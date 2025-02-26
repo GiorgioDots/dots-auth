@@ -40,10 +40,13 @@ export const userApplicationsCodes = sqliteTable('user_applications_codes', {
 	idUserApplication: text('user_application_id')
 		.notNull()
 		.references(() => userApplications.id),
-	code: text('code').notNull()
+	code: text('code').notNull(),
+	codeChallenge: text('code_challenge').notNull(),
+	expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull()
 });
 
 export const refreshToken = sqliteTable('refresh_tokens', {
+	id: text('id').primaryKey(),
 	userId: text('user_id')
 		.notNull()
 		.references(() => user.id),

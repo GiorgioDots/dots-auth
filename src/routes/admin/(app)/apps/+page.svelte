@@ -20,14 +20,14 @@
 			href="apps/{app.id}"
 			class="rounded-default hover:bg-background-100 p-2 pt-0 transition-colors duration-100 border border-background-200"
 		>
-			<div class="font-semibold">
+			<div class="font-semibold truncate">
 				{app.name}
 			</div>
-			<div class="text-background-600 text-xs">
+			<div class="text-background-600 text-xs truncate">
 				Client Id: <span class="font-semibold">{app.clientId}</span>
 			</div>
-			<div class="text-background-600 text-xs">
-				Client Secret: <span class="font-semibold">{app.clientSecret}</span>
+			<div class="text-background-600 text-xs truncate">
+				Client Secret: <span class="font-semibold ">{app.clientSecret}</span>
 			</div>
 		</a>
 	{/each}

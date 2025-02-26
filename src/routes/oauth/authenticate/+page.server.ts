@@ -20,7 +20,8 @@ export const load: PageServerLoad = async (event) => {
 	const client_id = params.get('client_id') || '';
 	const redirect_uri = params.get('redirect_uri') || '';
 	const state = params.get('state') || '';
-	if (!client_id || !redirect_uri || !state) {
+	const code_challenge = params.get('code_challenge') || '';
+	if (!client_id || !redirect_uri || !state || !code_challenge) {
 		return error(400, {
 			message: 'Request not valid'
 		});
@@ -33,27 +34,28 @@ export const load: PageServerLoad = async (event) => {
 		});
 	}
 
-	if (event.locals.user) {
-		const [userApp] = await db
-			.select()
-			.from(userApplications)
-			.where(
-				and(
-					eq(userApplications.applicationId, app.id),
-					eq(userApplications.userId, event.locals.user.id)
-				)
-			);
-		if (userApp != null) {
-			return await generateCodeAndRedirect(userApp.id, redirect_uri, state);
-		}
-	}
+	// if (event.locals.user) {
+	// 	const [userApp] = await db
+	// 		.select()
+	// 		.from(userApplications)
+	// 		.where(
+	// 			and(
+	// 				eq(userApplications.applicationId, app.id),
+	// 				eq(userApplications.userId, event.locals.user.id)
+	// 			)
+	// 		);
+	// 	if (userApp != null) {
+	// 		return await generateCodeAndRedirect(userApp.id, redirect_uri, state, code_challenge);
+	// 	}
+	// }
 
 	return {
 		user: event.locals.user,
 		params: {
 			client_id,
 			redirect_uri,
-			state
+			state,
+			code_challenge
 		},
 		app
 	};
@@ -101,21 +103,32 @@ export const actions: Actions = {
 			return fail(400, data.errors);
 		}
 		const userApp = await connectApp(data.data, event.locals.user);
-		return await generateCodeAndRedirect(userApp.id, data.data.redirect_uri, data.data.state, 303);
+		return await generateCodeAndRedirect(
+			userApp.id,
+			data.data.redirect_uri,
+			data.data.state,
+			data.data.code_challenge,
+			303
+		);
 	}
 };
+
+const DAY_IN_MS = 1000 * 60 * 60 * 24;
 
 const generateCodeAndRedirect = async (
 	idUserApp: string,
 	redirect_uri: string,
 	state: string,
+	code_challenge: string,
 	status = 302
 ) => {
 	const code = randomUUID();
 	await db.insert(userApplicationsCodes).values({
 		id: v7(),
 		code: code,
-		idUserApplication: idUserApp
+		codeChallenge: code_challenge,
+		idUserApplication: idUserApp,
+		expiresAt: new Date(Date.now() + DAY_IN_MS * 30)
 	});
 	return redirect(status, `${redirect_uri}?code=${code}&state=${state}`);
 };

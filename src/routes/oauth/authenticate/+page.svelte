@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { goto } from '$app/navigation';
 	import LoginForm from '$lib/components/forms/auth/LoginForm.svelte';
 	import RegisterForm from '$lib/components/forms/auth/RegisterForm.svelte';
 	import Button from '$lib/components/ui/button/Button.svelte';
@@ -65,6 +64,7 @@
 						<input name="client_id" type="text" bind:value={currparams.client_id} />
 						<input name="redirect_uri" type="text" bind:value={currparams.redirect_uri} />
 						<input name="state" type="text" bind:value={currparams.state} />
+						<input name="code_challenge" type="text" bind:value={currparams.code_challenge} />
 					</div>
 					<Button class="w-full">YES</Button>
 				</form>

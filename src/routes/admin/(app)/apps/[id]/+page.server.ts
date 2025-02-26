@@ -1,17 +1,16 @@
 import { db } from '$lib/server/db';
 import * as tables from '$lib/server/db/schema';
-import { error, fail, redirect, type Actions } from '@sveltejs/kit';
+import { error, fail, type Actions } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
-import type { PageServerLoad } from './$types';
 import { v7 } from 'uuid';
 import { z } from 'zod';
+import type { PageServerLoad } from './$types';
 
 const schema = z.object({
 	id: z.string(),
 	name: z.string().min(1, 'Name is required'),
 	clientId: z.string().min(1, 'Client ID is required'),
 	clientSecret: z.string().min(1, 'Client Secret is required'),
-	redirectUri: z.string(),
 	tokenExpirationSeconds: z.preprocess(
 		(val) => (val === '' ? null : Number(val)),
 		z.number().int().positive().min(60).max(86400)
@@ -30,7 +29,6 @@ export const load: PageServerLoad = async ({ params }) => {
 				clientId: '',
 				clientSecret: '',
 				name: '',
-				redirectUri: '',
 				refreshTokenExpirationSeconds: 604800,
 				tokenExpirationSeconds: 300
 			} as tables.Application

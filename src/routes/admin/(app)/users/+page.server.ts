@@ -7,7 +7,7 @@ export const load: PageServerLoad = async ({ locals }: { locals: App.Locals }) =
 	const users = await db
 		.select()
 		.from(user)
-		.innerJoin(userApplications, eq(user.id, userApplications.userId))
-		.innerJoin(application, eq(application.id, userApplications.applicationId));
+		.leftJoin(userApplications, eq(user.id, userApplications.userId))
+		.leftJoin(application, eq(application.id, userApplications.applicationId));
 	return { users };
 };

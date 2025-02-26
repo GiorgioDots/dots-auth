@@ -1,0 +1,1 @@
+ALTER TABLE `user_applications_codes` ADD `code_challenge` text NOT NULL;

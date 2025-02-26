@@ -64,6 +64,27 @@
       "when": 1740518071938,
       "tag": "0008_wealthy_gateway",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1740603502170,
+      "tag": "0009_last_prima",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "6",
+      "when": 1740603922292,
+      "tag": "0010_ambiguous_vapor",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "6",
+      "when": 1740606838721,
+      "tag": "0011_nostalgic_bulldozer",
+      "breakpoints": true
     }
   ]
 }

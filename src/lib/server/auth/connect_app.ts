@@ -7,7 +7,8 @@ import { v7 } from 'uuid';
 export const schema = z.object({
 	client_id: z.string().min(1, 'Client Id is required'),
 	redirect_uri: z.string().min(1, 'Redirect uri is required'),
-	state: z.string().min(1, 'State is required')
+	state: z.string().min(1, 'State is required'),
+	code_challenge: z.string().min(1, 'Code challenge is required')
 });
 
 export const connectApp = async (
