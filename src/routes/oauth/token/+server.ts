@@ -121,12 +121,12 @@ function base64UrlEncode(buffer: ArrayBuffer): string {
 		.replace(/=+$/, ''); // Remove padding "="
 }
 
-export function OPTIONS() {
+export async function OPTIONS() {
 	return new Response(null, {
-		headers: {
-			'Access-Control-Allow-Origin': '*',
-			'Access-Control-Allow-Methods': 'POST, OPTIONS',
-			'Access-Control-Allow-Headers': 'Content-Type'
-		}
-	});
-}
+	  headers: {
+		'Access-Control-Allow-Origin': '*', // Specify the url you wish to permit
+		'Access-Control-Allow-Methods': 'POST, OPTIONS',
+		'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+	  },
+	})
+  }
