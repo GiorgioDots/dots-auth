@@ -3,6 +3,7 @@ import { refreshToken, type Application, type RefreshToken, type User } from './
 import jwt from 'jsonwebtoken';
 import { db } from './db';
 import { v7 } from 'uuid';
+import { env } from '$env/dynamic/private';
 
 export const generateToken = async (
 	user: User,
@@ -13,7 +14,8 @@ export const generateToken = async (
 			userId: user.id,
 			username: user.username,
 			isAdmin: user.isAdmin,
-			aud: application.clientId
+			aud: application.clientId,
+			iss: env.JWT_ISSUER
 		},
 		application.clientSecret,
 		{

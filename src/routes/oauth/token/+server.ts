@@ -120,3 +120,13 @@ function base64UrlEncode(buffer: ArrayBuffer): string {
 		.replace(/\//g, '_') // Replace "/" with "_"
 		.replace(/=+$/, ''); // Remove padding "="
 }
+
+export function OPTIONS() {
+	return new Response(null, {
+		headers: {
+			'Access-Control-Allow-Origin': '*',
+			'Access-Control-Allow-Methods': 'POST, OPTIONS',
+			'Access-Control-Allow-Headers': 'Content-Type'
+		}
+	});
+}
