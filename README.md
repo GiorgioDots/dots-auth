@@ -118,3 +118,7 @@ curl --location '{{auth_url}}/oauth/token' \
     "grant_type": "refresh_token"
 }'
 ```
+
+# Docker build for raspberry PI
+
+`docker buildx build --platform linux/arm64 --push -t ghcr.io/giorgiodots/dots-auth:prod .`

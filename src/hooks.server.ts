@@ -4,6 +4,7 @@ import * as auth from '$lib/server/auth.js';
 const handleAuth: Handle = async ({ event, resolve }) => {
 	const sessionToken = event.cookies.get(auth.sessionCookieName);
 
+	console.log("Call from session", sessionToken)
 	if (!sessionToken && event.route.id?.startsWith('/admin/(app)')) {
 		return redirect(302, '/admin/login');
 	}

@@ -1,17 +1,19 @@
-FROM node:22-alpine AS builder
+FROM --platform=linux/amd64 node:22-alpine AS build
 WORKDIR /app
-COPY package*.json ./
-RUN npm ci
+COPY ./package*.json ./
+COPY ./.env.example ./.env
+RUN npm install
 COPY . .
 RUN npm run build
-RUN npm prune --production
 
 FROM node:22-alpine
-WORKDIR /app
-COPY --from=builder /app/build build/
-COPY --from=builder /app/node_modules node_modules/
-COPY package.json .
+COPY --from=build /app/build ./build
+COPY --from=build /app/.env.example .env
+COPY --from=build /app/package.json .
+COPY --from=build /app/package-lock.json .
+COPY --from=build /app/drizzle.config.ts ./drizzle.config.ts
+COPY --from=build /app/drizzle ./drizzle
+RUN npm ci --omit dev
 EXPOSE 3000
-ENV NODE_ENV=production
-CMD [ "node", "--env-file=.env", "build" ]
+CMD ["node", "--env-file=.env", "build"]
 

@@ -72,7 +72,7 @@ export const actions: Actions = {
 		const session = await auth.createSession(sessionToken, result.user.id);
 		auth.setSessionTokenCookie(event, sessionToken, session.expiresAt);
 
-		return { user: result.user };
+		return { user: { id: result.user.id } };
 	},
 	register: async (event) => {
 		const result = await register(event.request);
